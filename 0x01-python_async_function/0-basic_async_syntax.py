@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
-"""My first async program""" 
-import asyncio
+""" My first async program """
 import random
+import asyncio
 
 
-async def wait_random(max_delay=10):
+async def wait_random(max_delay: int = 10) -> float:
+    """asyncronous program that return a float number
+        with a random wait delay
     """
-    Asynchronous coroutine that waits for a random delay
-    between 0 and max_delay seconds.
-    """
 
-    delay = random.uniform(0, max_delay)
-    await asyncio.sleep(delay)
-    return delay
+    random_val = random.uniform(0, max_delay)
+    await asyncio.sleep(random_val)
+    return random_val
