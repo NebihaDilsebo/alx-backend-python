@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """My first async program""" 
-import asyncio
 import random
+import asyncio
 
 
 async def wait_random(max_delay: int = 10) -> float:
