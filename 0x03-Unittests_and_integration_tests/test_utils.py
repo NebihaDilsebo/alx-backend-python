@@ -18,14 +18,15 @@ class TestAccessNestedMap(unittest.TestCase):
         """
         self.assertEqual(access_nested_map(nested_map, path), expected_result)
 
-    @parameterized.expand([
-        ({}, ("a",), "a not in nested_map"),
-        ({"a": 1}, ("a", "b"), "b not in {'a': 1}")
+     @parameterized.expand([
+        ({}, ("a",)),
+        ({"a": 1}, ("a", "b"))
     ])
-    def test_access_nested_map_exception(self, nested_map, path, expected_error_message):
-        """Exception access nested method
+    def test_access_nested_map_exception(self, nested_map, path_map):
+        """ Exception access nested method
         """
-        with self.assertRaises(KeyError) as context:
-            access_nested_map(nested_map, path)
+        with self.assertRaises(KeyError) as error:
+            access_nested_map(nested_map, path_map)
 
-        self.assertEqual(str(context.exception), expected_error_message)
+        self.assertEqual(
+            f'KeyError({str(error.exception)})', repr(error.exception))
