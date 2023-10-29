@@ -7,6 +7,7 @@ import requests
 from parameterized import parameterized
 from utils import access_nested_map
 from utils import get_json
+from utils import memoize
 
 class TestAccessNestedMap(unittest.TestCase):
     """Access nested map"""
