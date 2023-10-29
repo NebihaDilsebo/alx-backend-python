@@ -7,6 +7,7 @@ from your_module import utils  # Import the module where utils.get_json is defin
 
 from parameterized import parameterized
 from utils import access_nested_map
+from utils import get_json
 
 class TestAccessNestedMap(unittest.TestCase):
     """Access nested map"""
@@ -34,17 +35,23 @@ class TestAccessNestedMap(unittest.TestCase):
         self.assertEqual(
             f'KeyError({str(error.exception)})', repr(error.exception))
 
-        class TestGetJson(unittest.TestCase):
-    """ Test JSON """
+class TestGetJson(unittest.TestCase):
 
+    @patch('utils.requests.get')
     @parameterized.expand([
         ("http://example.com", {"payload": True}),
         ("http://holberton.io", {"payload": False})
     ])
-    def test_get_json(self, test_url, test_payload):
-        """ Mock HTTP calls
-        """
-        with patch('requests.get') as mock_request:
-            mock_request.return_value.json.return_value = test_payload
-            self.assertEqual(get_json(url=test_url), test_payload)
+    def test_get_json(self, test_url, test_payload, mock_get):
+        # Create a Mock object for requests.get
+        mock_get.return_value = Mock()
+        mock_get.return_value.json.return_value = test_payload
 
+        # Call the get_json function
+        result = get_json(test_url)
+
+        # Assert that requests.get was called exactly once with the test_url
+        mock_get.assert_called_once_with(test_url)
+
+        # Assert that the result matches the expected test_payload
+        self.assertEqual(result, test_payload)
