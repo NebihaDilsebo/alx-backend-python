@@ -9,6 +9,7 @@ from utils import access_nested_map
 from utils import get_json
 from utils import memoize
 
+
 class TestAccessNestedMap(unittest.TestCase):
     """Access nested map"""
 
@@ -35,6 +36,7 @@ class TestAccessNestedMap(unittest.TestCase):
         self.assertEqual(
             f'KeyError({str(error.exception)})', repr(error.exception))
 
+
 class TestGetJson(unittest.TestCase):
     """ Test JSON """
 
@@ -48,6 +50,7 @@ class TestGetJson(unittest.TestCase):
         with patch('requests.get') as mock_request:
             mock_request.return_value.json.return_value = test_payload
             self.assertEqual(get_json(url=test_url), test_payload)
+
 
 class TestMemoize(unittest.TestCase):
     """ Test Class to memoize """
